@@ -1,0 +1,1 @@
+My name is Taylor Rosby, but I go by Tay. I am a third year Computer Programming student with a minor in Cyber Security. My favorite past time is hanging out with my best friend and going to concerts. 
