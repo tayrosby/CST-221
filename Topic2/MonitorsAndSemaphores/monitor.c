@@ -13,7 +13,6 @@
 
 sem_t mutex;
 
-// Shared Circular Buffer
 struct
 {
     pthread_mutex_t mutex;
@@ -40,18 +39,17 @@ void deposit()
     for (int i = 0; i < 10; i++)
     {
         sem_wait(&mutex);
-        pthread_mutex_lock(&shared.mutex);
         if (shared.deposit < shared.buffer)
         {
             shared.amount++;
             shared.deposit++;
             printf("deposited value: %i \n", shared.deposit);
             sleep(1);
-            pthread_mutex_unlock(&shared.mutex);
+            sem_post(&mutex);
         }
         else
         {
-            pthread_mutex_unlock(&shared.mutex);
+            sem_post(&mutex);
         }
         sem_post(&mutex);
     }
@@ -63,20 +61,18 @@ void withdrawl()
     for (int i = 0; i < 10; i++)
     {
         sem_wait(&mutex);
-        pthread_mutex_lock(&shared.mutex);
         if (shared.withdrawl < shared.deposit)
         {
             x = getAmount();
             consume(x);
             shared.withdrawl++;
             sleep(1);
-            pthread_mutex_unlock(&shared.mutex);
+            sem_post(&mutex);
         }
         else
         {
-            pthread_mutex_unlock(&shared.mutex);
+            sem_post(&mutex);
         }
-        sem_post(&mutex);
     }
 }
 
