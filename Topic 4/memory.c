@@ -18,9 +18,13 @@ int decToHex(decimalNumber)
 		//To convert integer into character
 		if( temp < 10)
     {
-      temp =temp + 48; else
+      temp =temp + 48; 
+    }
+    else
+    {
       temp = temp + 55;
     }
+    
 		hexadecimalNumber[i++]= temp;
 		quotient = quotient / 16;
 	}
